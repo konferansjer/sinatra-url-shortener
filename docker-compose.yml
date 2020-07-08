@@ -1,0 +1,19 @@
+version: "3.7"
+services:
+  redis:
+    image: "redis:4.0"
+    volumes:
+      - develop-redis:/data
+    ports:
+      - "6379:6379"
+  web:
+    build: .
+    environment:
+      - REDIS_URL=redis://redis:6379
+    links:
+      - redis
+    ports:
+      - "3000:3000"
+
+volumes:
+  develop-redis: {}
